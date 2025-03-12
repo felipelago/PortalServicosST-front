@@ -12,7 +12,7 @@
  </p>
  
  ## :page_with_curl: Sobre
- Este repositório contém um sistema baseado em arquitetura Rest Api desenvolvida com Java (17 corretto) e Spring (3.4), banco de dados H2 para a persistência de dados com Spring Data, o spring-validation para fazer as validações necessárias da Api. A atividade é uma história de um projeto já em andamento, então existem muitas lácunas e trechos não explicados, tentei preencher essas "lácunas" com minha criatividade para que o sistema ficasse o máximo possível funcional e cumprisse com a maior quantidade possível de regras de negócio e requisitos.
+A atividade é uma história de um projeto já em andamento, então existem muitas lácunas e trechos não explicados, tentei preencher essas "lácunas" com minha criatividade para que o sistema ficasse o máximo possível funcional e cumprisse com a maior quantidade possível de regras de negócio e requisitos.
  
  ## :books: **Dependencias**
  
@@ -47,3 +47,6 @@
 # Compiles and minifies for production
 npm run build
 ```
+
+ ## 🎯: Testando o Projeto
+ Utilize o Login que você criou seguindo o README do backend para fazer login no sistema.
