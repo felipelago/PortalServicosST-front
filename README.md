@@ -48,5 +48,5 @@ A atividade é uma história de um projeto já em andamento, então existem muit
 npm run build
 ```
 
- ## 🎯: Testando o Projeto
+ ## 🎯 Testando o Projeto
  Utilize o Login que você criou seguindo o README do backend para fazer login no sistema.
