@@ -99,101 +99,116 @@
             <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
     </div>
+
+    <!-- Modal de Alerta -->
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alertModalLabel">Atenção</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ mensagemErro }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <script>
 import empresaService from '@/services/empresaService';
 
 export default {
-    data() {
-        return {
-            tipoPessoa: '',
-            usuarioLogado: null,
+  data() {
+    return {
+      tipoPessoa: '',
+      usuarioLogado: JSON.parse(localStorage.getItem('usuarioLogado')) || null,
+      mensagemErro: '',
 
-            empresaJuridica: {
-                razaoSocial: '',
-                cnpj: '',
-                nomeFantasia: '',
-                perfil: '',
-                usuarioResponsavelId: null
-            },
+      empresaJuridica: {
+        razaoSocial: '',
+        cnpj: '',
+        nomeFantasia: '',
+        perfil: '',
+        usuarioResponsavelId: null
+      },
 
-            empresaFisica: {
-                nome: '',
-                cpf: '',
-                perfil: '',
-                usuarioResponsavelId: null
-            },
+      empresaFisica: {
+        nome: '',
+        cpf: '',
+        perfil: '',
+        usuarioResponsavelId: null
+      }
+    };
+  },
 
-            empresaEstrangeira: {
-                nome: '',
-                identificadorEstrangeiro: '',
-                perfil: '',
-                usuarioResponsavelId: null
-            }
-        };
+  methods: {
+    mostrarModal(mensagem) {
+      this.mensagemErro = mensagem;
+      const modalElement = document.getElementById('alertModal');
+      if (modalElement) {
+        const modal = new window.bootstrap.Modal(modalElement);
+        modal.show();
+      }
     },
 
-    mounted() {
-        this.carregarUsuarioLogado();
+    validarCNPJ(cnpj) {
+      return cnpj && cnpj.length === 14;
     },
 
-    methods: {
-        carregarUsuarioLogado() {
-            const usuario = localStorage.getItem('usuarioLogado');
-            if (usuario) {
-                this.usuarioLogado = JSON.parse(usuario);
-            } else {
-                alert('Erro: Usuário não está logado.');
-                this.$router.push('/login'); // Redireciona para login se não houver usuário logado
-            }
-        },
+    validarCPF(cpf) {
+      return cpf && cpf.length === 11;
+    },
 
-        async submitEmpresaJuridica() {
-            if (!this.usuarioLogado) {
-                alert("Usuário não encontrado. Faça login novamente.");
-                return;
-            }
+    validarPerfil(perfil) {
+      return perfil !== '';
+    },
 
-            this.empresaJuridica.usuarioResponsavelId = this.usuarioLogado.id;
-            try {
-                await empresaService.cadastrarEmpresaJuridica(this.empresaJuridica);
-                alert('Empresa Jurídica cadastrada com sucesso!');
-            } catch (error) {
-                alert('Erro ao cadastrar empresa jurídica.');
-            }
-        },
+    async submitEmpresaJuridica() {
+      if (!this.validarCNPJ(this.empresaJuridica.cnpj)) {
+        this.mostrarModal("CNPJ inválido");
+        return;
+      }
+      if (!this.validarPerfil(this.empresaJuridica.perfil)) {
+        this.mostrarModal("Selecione um perfil para a empresa");
+        return;
+      }
 
-        async submitEmpresaFisica() {
-            if (!this.usuarioLogado) {
-                alert("Usuário não encontrado. Faça login novamente.");
-                return;
-            }
+      this.empresaJuridica.usuarioResponsavelId = this.usuarioLogado?.id;
 
-            this.empresaFisica.usuarioResponsavelId = this.usuarioLogado.id;
-            try {
-                await empresaService.cadastrarEmpresaFisica(this.empresaFisica);
-                alert('Empresa Física cadastrada com sucesso!');
-            } catch (error) {
-                alert('Erro ao cadastrar empresa física.');
-            }
-        },
+      try {
+        await empresaService.cadastrarEmpresaJuridica(this.empresaJuridica);
+        alert('Empresa Jurídica cadastrada com sucesso!');
+      } catch (error) {
+        alert('Erro ao cadastrar empresa jurídica.');
+      }
+    },
 
-        async submitEmpresaEstrangeira() {
-            if (!this.usuarioLogado) {
-                alert("Usuário não encontrado. Faça login novamente.");
-                return;
-            }
+    async submitEmpresaFisica() {
+      if (!this.validarCPF(this.empresaFisica.cpf)) {
+        this.mostrarModal("CPF inválido");
+        return;
+      }
+      if (!this.validarPerfil(this.empresaFisica.perfil)) {
+        this.mostrarModal("Selecione um perfil para a empresa");
+        return;
+      }
 
-            this.empresaEstrangeira.usuarioResponsavelId = this.usuarioLogado.id;
-            try {
-                await empresaService.cadastrarEmpresaEstrangeira(this.empresaEstrangeira);
-                alert('Empresa Estrangeira cadastrada com sucesso!');
-            } catch (error) {
-                alert('Erro ao cadastrar empresa estrangeira.');
-            }
-        }
+      this.empresaFisica.usuarioResponsavelId = this.usuarioLogado?.id;
+
+      try {
+        await empresaService.cadastrarEmpresaFisica(this.empresaFisica);
+        alert('Empresa Física cadastrada com sucesso!');
+      } catch (error) {
+        alert('Erro ao cadastrar empresa física.');
+      }
     }
+  }
 };
 </script>
 
