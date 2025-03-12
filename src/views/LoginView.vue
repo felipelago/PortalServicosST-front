@@ -31,7 +31,9 @@ export default {
         async login() {
             try {
                 const response = await authService.login(this.email, this.senha);
-                alert(response);
+                localStorage.setItem('usuarioLogado', JSON.stringify(response));
+
+                alert("Login feito com sucesso");
                 this.$router.push('/dashboard');
             } catch (error) {
                 this.errorMessage = error.message;
