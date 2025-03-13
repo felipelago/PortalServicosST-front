@@ -13,5 +13,9 @@ export default {
 
     cadastrarEmpresaEstrangeira(empresa) {
         return axios.post(`${API_URL}/cadastrar/estrangeira`, empresa);
-    }
+    },
+
+    listarEmpresas() {
+        return axios.get(`${API_URL}/listarTudo`);
+    },
 };
