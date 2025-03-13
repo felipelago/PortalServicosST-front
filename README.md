@@ -47,6 +47,6 @@ A atividade é uma história de um projeto já em andamento, então existem muit
 # Compiles and minifies for production
 npm run build
 ```
-
- ## 🎯 Testando o Projeto
- Utilize o Login que você criou seguindo o README do backend para fazer login no sistema.
+## 🛑 Know Issues
+- Quando for cadastrar uma empresa no campo de indicar um usuário externo (caso o seu logado seja interno) ele ainda não está aceitando o e-mail, somente o ID;
+- Tratamento de erros com problemas de comunicação com o back, o backend identifica o erro, mas é necessário alterações no backend para o error do axios receber a mensagem correta, por exemplo, CNPJ já cadastrado, o front vai exibir apenas "Erro ao cadastrar empresa";
