@@ -250,12 +250,9 @@ export default {
                     this.usuarioLogado &&
                     ['EMPRESA_MASTER', 'EMPRESA_LISTA', 'EMPRESA_EDICAO'].includes(this.usuarioLogado.permissao)
                 ) {
-                    this.mostrarModal("Empresa cadastrada com sucesso");
-                    setTimeout(() => {
-                        this.mostrarModal("Empresa aprovada com sucesso");
-                    }, 1000);
+                    this.mostrarModal("Empresa cadastrada e aprovada com sucesso");
                 } else {
-                    this.mostrarModal("Empresa cadastrada com sucesso");
+                    this.mostrarModal("Empresa cadastrada com sucesso, aguarde aprovação");
                 }
             } catch (error) {
                 let errorMsg = 'Erro ao cadastrar empresa jurídica.';
@@ -291,12 +288,9 @@ export default {
                     this.usuarioLogado &&
                     ['EMPRESA_MASTER', 'EMPRESA_LISTA', 'EMPRESA_EDICAO'].includes(this.usuarioLogado.permissao)
                 ) {
-                    this.mostrarModal("Empresa cadastrada com sucesso");
-                    setTimeout(() => {
-                        this.mostrarModal("Empresa aprovada com sucesso");
-                    }, 1000);
+                    this.mostrarModal("Empresa cadastrada e aprovada com sucesso");
                 } else {
-                    this.mostrarModal("Empresa cadastrada com sucesso");
+                    this.mostrarModal("Empresa cadastrada com sucesso, aguarde aprovação");
                 }
             } catch (error) {
                 let errorMsg = 'Erro ao cadastrar empresa física.';
@@ -328,12 +322,9 @@ export default {
                     this.usuarioLogado &&
                     ['EMPRESA_MASTER', 'EMPRESA_LISTA', 'EMPRESA_EDICAO'].includes(this.usuarioLogado.permissao)
                 ) {
-                    this.mostrarModal("Empresa cadastrada com sucesso");
-                    setTimeout(() => {
-                        this.mostrarModal("Empresa aprovada com sucesso");
-                    }, 1000);
+                    this.mostrarModal("Empresa cadastrada e aprovada com sucesso");
                 } else {
-                    this.mostrarModal("Empresa cadastrada com sucesso");
+                    this.mostrarModal("Empresa cadastrada com sucesso, aguarde aprovação");
                 }
             } catch (error) {
                 let errorMsg = 'Erro ao cadastrar empresa estrangeira.';
